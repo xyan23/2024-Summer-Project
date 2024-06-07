@@ -47,7 +47,7 @@ heapsort <- function(A, comp_fun) {
     A[1,] <- A[i,]
     A[i,] <- key
     # Decrease the heap size by 1
-    A[1:(i-1),] <- max_heapify(A[1:(i-1),], 1, comp_fun)
+    A[1:(i-1), ] <- max_heapify(A[1:(i-1), , drop = FALSE], 1, comp_fun)
   }
   return(A)
 }
