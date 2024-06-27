@@ -30,5 +30,5 @@ void comp_fun(std::string ordering_method, NumericVector p1, NumericVector p2) {
     else if (ordering_method == "mmd")
         return mmd(NumericVector p1, NumericVector p2);
     else 
-        stop("Choose from x_coordinate, y_coordinate, or mmd.")
+        stop("Choose from x_coordinate, y_coordinate, or mmd.");
 }
