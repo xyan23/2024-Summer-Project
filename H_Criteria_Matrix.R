@@ -83,5 +83,34 @@ compare_function2 <- function(p1, p2) {
 build_max_heap(m, compare_function2)
 heapsort(m, compare_function2)
 
+compare_function3 <- function(p1, p2, ordered_points) {
+  # Calculate the distance between two points
+  distance <- function(x1, x2) {
+    return(sqrt(sum((x1 - x1)^2)))
+  }
+  # Calculate the minimum distance
+  min_distance <- function(p, ordered_points){
+    min(sapply(ordered_points, function(point) {
+      distance(p, point)
+    }))
+  }
+  
+  comparison_criterion <- min_distance(p1, ordered_points) < min_distance(p2, ordered_points)
+  
+  if(comparison_criterion) {
+    TRUE
+  } else {
+    FALSE
+  }
+}
+
+#MMD Example
+x1 <- c(1, 3, 0, 2, 2)
+y1 <- c(5, 3, 1, 2, 0)
+m1 <- matrix(c(x1, y1), nrow = length(x), ncol = 2)
+
+build_max_heap(m1, compare_function3)
+heapsort(m1, compare_function3)
+
 library("Rcpp")
 sourceCpp("H_Criteria_Matrix.cpp")
