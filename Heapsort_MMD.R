@@ -49,7 +49,7 @@ min_distance <- function(p, ordered_points){
   }))
 }
 
-heap_mmd <- function(A, comp_fun) {
+heap_mmd_ver1 <- function(A, comp_fun) {
   # Start with a random point
   start_index <- sample(1:nrow(A), 1)
   # Store ordered points
@@ -80,6 +80,48 @@ heap_mmd <- function(A, comp_fun) {
   return(ordered_points)
 }
 
+heap_mmd_ver2 <- function(A, comp_fun) {
+  # Start with a random point
+  start_index <- sample(1:nrow(A), 1)
+  # Store ordered points
+  ordered_points <- A[start_index, , drop = FALSE]
+  # Store remaining points
+  remaining_points <- A[-start_index, , drop = FALSE]
+
+  count <- 0
+  while (nrow(remaining_points) > 1){
+    count <- count + 1
+    
+    if (count == 1) {
+      # Find the  distance from the first ordered point
+      dist_vec <- c()
+      for (i in 1:nrow(remaining_points)) {
+        dist_vec[i] <- distance(remaining_points[i, ], ordered_points[count, ])
+      }
+      
+      remaining_points <- cbind(remaining_points, dist_vec)
+      remaining_points <- build_max_heap(remaining_points, comp_fun)
+      ordered_points <- rbind(ordered_points, remaining_points[1, -3])
+      remaining_points <- remaining_points[-1, , drop = FALSE]
+      
+    } else {
+      # Find the maximum minimum distance for the rest of the points
+      for (i in 1:nrow(remaining_points)) {
+        dist <- distance(remaining_points[i,-3], ordered_points[count, ])
+        if (dist < remaining_points[i,3]) {
+          remaining_points[i,3] <- dist
+        } 
+      }  
+      remaining_points <- build_max_heap(remaining_points, comp_fun)
+      ordered_points <- rbind(ordered_points, remaining_points[1, -3])
+      remaining_points <- remaining_points[-1, , drop = FALSE]
+      
+    }
+  }
+  ordered_points <- rbind(ordered_points, remaining_points[1, -3])
+  return(ordered_points)
+}
+
 compare_mmd <- function(p1, p2) {
   comparison_criterion <- p1[3] > p2[3]
   if(comparison_criterion) {
@@ -94,4 +136,8 @@ x <- c(1, 3, 0, 2, 2)
 y <- c(5, 3, 1, 2, 0)
 m <- matrix(c(x, y), nrow = length(x), ncol = 2)
 
-heap_mmd(m, compare_mmd)
+heap_mmd_ver1(m, compare_mmd)
+heap_mmd_ver2(m, compare_mmd)
+
+library(microbenchmark)
+microbenchmark(m1 = heap_mmd_ver1(m, compare_mmd), m2 = heap_mmd_ver2(m, compare_mmd))
