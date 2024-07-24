@@ -1,6 +1,15 @@
-x<-c(2, 9, 3)
-y<-c(1, 2, 1)
-m<-matrix(c(x, y), nrow = length(x), ncol = 2)
+#' Order points with MMD, without using heap structure (There still some bug in the code)
+#'
+#' @param matrix A n by 2 matrix where each row represents a point.
+#'
+#' @return A matrix of ordered points.
+#' @export
+#'
+#' @examples
+#' x<-c(2, 9, 3)
+#' y<-c(1, 2, 1)
+#' m<-matrix(c(x, y), nrow = length(x), ncol = 2)
+#' mmd_order(m)
 
 mmd_order <- function(matrix) {
   # Calculate the distance between two points

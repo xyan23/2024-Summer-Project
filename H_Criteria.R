@@ -1,3 +1,12 @@
+#' Two algorithm conducting heapsort
+#'
+#' @param vec A vector.
+#' @param comp_fun A compare function which provides the compare criteria for heap.
+#'
+#' @return An ordered vector.
+#' @export
+#'
+#' @examples
 #### Algorithm 1
 heap_bottom_up <- function(vec,comp_fun) {
   n <- length(vec)

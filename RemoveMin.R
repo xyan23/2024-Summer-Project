@@ -1,4 +1,4 @@
-#Remove top node, then heapify
+#Remove top node, then heapify (Another algorithm to conduct heap)
 #Input: Heap(vector), compare function
 #Output: Heap(vector)
 RemoveMin <- function(heap, comp_fun) {

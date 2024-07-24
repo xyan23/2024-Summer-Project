@@ -5,6 +5,19 @@ plot(w)
 points(xy)
 x<-xy$x
 
+#' Conducting heapsort
+#'
+#' @param vec A vector.
+#'
+#' @return An ordered vector.
+#' @export
+#'
+#' @examples
+#' h<-c(2,9,7,6,5,8)
+#' HeapBottomUp(h)
+#' Heapsort(h)
+
+
 HeapBottomUp<-function(vec){
   n<-length(vec)
   f<-floor(n/2)
@@ -32,11 +45,6 @@ HeapBottomUp<-function(vec){
     return(vec)
 }    
     
-h<-c(2,9,7,6,5,8)
-f<-floor(length(h)/2)
-f
-HeapBottomUp(h)
-
 Heapsort<-function(vec){
   l<-length(vec)
   sortvec<-numeric(length(vec))
@@ -53,4 +61,4 @@ Heapsort<-function(vec){
   sortvec[l]<-vec[1]
   return(sortvec)
 }
-Heapsort(h)
+

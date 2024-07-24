@@ -1,3 +1,4 @@
+# Example of using MaxMincpp function
 library(Rcpp)
 
 # Source the C++ file
